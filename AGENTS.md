@@ -42,7 +42,9 @@ python skills/<name>.py --help
 
 | Skill | Purpose |
 |-------|---------|
+| `skills/digest.py` | Full ingestion pipeline: rename new raw files + create summary stubs |
 | `skills/ingest.py` | Find raw/ files not yet referenced by wiki/summaries/ |
+| `skills/rename.py` | Slugify raw/ filenames based on frontmatter title — updates wiki refs |
 | `skills/search.py` | Keyword search across wiki/ — stdout only |
 | `skills/lint.py` | Structural checks: broken links, orphans, missing frontmatter |
 | `skills/stub.py` | Create a blank wiki page from a schema template |
@@ -75,7 +77,7 @@ No sidecar files. No registry. State is implicit in the wiki.
 
 ## Allowed
 
-- `raw/`: append files only
+- `raw/`: append files only; **rename is allowed during `/digest`** (auto-slugify based on frontmatter title)
 - `wiki/`: create/update pages per schemas — **with user approval after any analysis**
 - `output/`: write freely, never commit
 - `skills/`: add skills, never remove without checking dependents
@@ -83,7 +85,6 @@ No sidecar files. No registry. State is implicit in the wiki.
 
 ## Forbidden
 
-- Editing existing files in `raw/`
 - Deleting wiki pages — use `status: deprecated`
 - Inventing facts — use `[UNVERIFIED]`
 - Adding sidecar/meta files to `raw/`

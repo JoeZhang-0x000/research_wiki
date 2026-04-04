@@ -12,7 +12,9 @@ python skills/<name>.py --help
 
 | Script | Description |
 |--------|-------------|
+| `digest.py` | Full ingestion pipeline: rename new raw files + create summary stubs |
 | `ingest.py` | Find raw/ files not yet referenced by any wiki/summaries/ page |
+| `rename.py` | Slugify raw/ filenames based on frontmatter title — updates wiki refs |
 | `search.py` | Keyword search across wiki/ — stdout only, no files written |
 | `lint.py` | Structural checks: broken links, orphans, missing frontmatter, [UNVERIFIED] in stable pages, raw/ duplicate-name warnings |
 | `stub.py` | Create a blank wiki page from a schema template |
