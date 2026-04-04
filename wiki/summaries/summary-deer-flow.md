@@ -92,17 +92,17 @@ DeerFlow 2.0 evolved from a Deep Research framework into a "super agent harness"
 
 ## Links to Concepts
 
-- [[SuperAgent Harness]] — DeerFlow positions itself as a super agent harness
-- [[Sub-Agent Orchestration]] — lead agent spawning parallel sub-agents
-- [[Sandbox Isolation]] — Docker/Kubernetes execution modes
-- [[Long-Term Memory]] — persistent cross-session memory
-- [[Skills System]] — Markdown-based extensible capabilities
-- [[Context Engineering]] — aggressive context summarization and offloading
+- [[superagent-harness]] — DeerFlow positions itself as a super agent harness
+- [[sub-agent-orchestration]] — lead agent spawning parallel sub-agents
+- [[sandbox-isolation]] — Docker/Kubernetes execution modes
+- [[long-term-memory]] — persistent cross-session memory
+- [[skills-system]] — Markdown-based extensible capabilities
+- [[context-engineering]] — aggressive context summarization and offloading
 
 ## Links to Topics
 
-- [[AI Agents]]
-- [[Context Engineering]]
+- [[ai-agents]]
+- [[context-engineering]]
 
 ## Quotes Worth Preserving
 

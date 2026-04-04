@@ -63,13 +63,13 @@ This is an informational/research artifact, not a research contribution with res
 
 ## Links to Concepts
 
-- [[Claude Code]] — the subject of this source map extraction
-- [[Source Map Reverse Engineering]] — extraction technique used
+- [[claude-code]] — the subject of this source map extraction
+- [[source-map-reverse-engineering]] — extraction technique used
 
 ## Links to Topics
 
-- [[AI Agents]]
-- [[Coding Agents]]
+- [[ai-agents]]
+- [[coding-agents]]
 
 ## Quotes Worth Preserving
 

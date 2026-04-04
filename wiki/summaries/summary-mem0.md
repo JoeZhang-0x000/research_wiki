@@ -82,15 +82,15 @@ Mem0 implements a memory system that sits between the LLM and the user/applicati
 
 ## Links to Concepts
 
-- [[Universal Memory Layer]] — Mem0's core abstraction
-- [[Multi-Level Memory]] — user, session, and agent state tiers
-- [[Memory Search]] — semantic search for relevant memories
-- [[LOCOMO Benchmark]] — the evaluation benchmark used
+- [[universal-memory-layer]] — Mem0's core abstraction
+- [[multi-level-memory]] — user, session, and agent state tiers
+- [[memory-search]] — semantic search for relevant memories
+- [[locomo-benchmark]] — the evaluation benchmark used
 
 ## Links to Topics
 
-- [[AI Agents]]
-- [[Memory Management]]
+- [[ai-agents]]
+- [[memory-management]]
 
 ## Quotes Worth Preserving
 

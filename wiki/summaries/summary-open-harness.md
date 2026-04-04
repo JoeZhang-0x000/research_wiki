@@ -71,14 +71,14 @@ No benchmark results are provided; OpenHarness is a developer tool / SDK rather 
 
 ## Links to Concepts
 
-- [[Agent Harness]] — OpenHarness is itself a harness framework for building agents
-- [[Session Management]] — Session class with compaction and retry
-- [[Middleware Pattern]] — Composable middleware via apply()
+- [[agent-harness]] — OpenHarness is itself a harness framework for building agents
+- [[session-management]] — Session class with compaction and retry
+- [[middleware-pattern]] — Composable middleware via apply()
 
 ## Links to Topics
 
-- [[AI Agents]]
-- [[Tool Use]]
+- [[ai-agents]]
+- [[tool-use]]
 
 ## Quotes Worth Preserving
 

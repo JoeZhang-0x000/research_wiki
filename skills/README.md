@@ -14,9 +14,9 @@ python skills/<name>.py --help
 |--------|-------------|
 | `ingest.py` | Find raw/ files not yet referenced by any wiki/summaries/ page |
 | `search.py` | Keyword search across wiki/ — stdout only, no files written |
-| `lint.py` | Structural checks: broken links, orphans, missing frontmatter, [UNVERIFIED] in stable pages |
+| `lint.py` | Structural checks: broken links, orphans, missing frontmatter, [UNVERIFIED] in stable pages, raw/ duplicate-name warnings |
 | `stub.py` | Create a blank wiki page from a schema template |
-| `reorganize.py` | Detect and fix Obsidian graph issues: broken links (fuzzy-matched), orphans, likely duplicates |
+| `reorganize.py` | Detect and fix Obsidian graph issues: broken links (fuzzy-matched), orphans, likely duplicates, exact duplicate raw/ sources |
 
 ---
 

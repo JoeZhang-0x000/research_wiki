@@ -72,18 +72,18 @@ The survey itself is a literature synthesis; no novel empirical results are repo
 
 ## Links to Concepts
 
-- [[Agent Memory Taxonomy]] — the three-axis taxonomy (Forms × Functions × Dynamics) is the central conceptual contribution
-- [[Factual Memory]] — token-level memory for knowledge
-- [[Experiential Memory]] — memory of insights and skills
-- [[Working Memory]] — active context management
-- [[Mem0]] — listed as a key related system
-- [[MemGPT]] — cited as foundational work ("LLMs as Operating Systems")
-- [[Hierarchical Memory]] — multiple memory tiers appear throughout the taxonomy
+- [[agent-memory-taxonomy]] — the three-axis taxonomy (Forms × Functions × Dynamics) is the central conceptual contribution
+- [[factual-memory]] — token-level memory for knowledge
+- [[experiential-memory]] — memory of insights and skills
+- [[working-memory]] — active context management
+- [[mem0]] — listed as a key related system
+- [[memgpt]] — cited as foundational work ("LLMs as Operating Systems")
+- [[hierarchical-memory]] — multiple memory tiers appear throughout the taxonomy
 
 ## Links to Topics
 
-- [[AI Agents]]
-- [[Memory Management]]
+- [[ai-agents]]
+- [[memory-management]]
 
 ## Quotes Worth Preserving
 

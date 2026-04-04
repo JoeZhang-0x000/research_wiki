@@ -90,16 +90,16 @@ OmO is a plugin for OpenCode (not a standalone harness) that layers on sophistic
 
 ## Links to Concepts
 
-- [[Agent Harness]] — oh-my-openagent is a plugin harness for OpenCode
-- [[Hashline Edit Tool]] — hash-anchored content-addressed edits solving stale-line problem
-- [[Discipline Agents]] — multiple specialized agents with distinct roles
-- [[Ultrawork]] — aggressive parallel task completion mode
-- [[Skill-Embedded MCPs]] — MCP servers bundled with skills
+- [[agent-harness]] — oh-my-openagent is a plugin harness for OpenCode
+- [[hashline-edit-tool]] — hash-anchored content-addressed edits solving stale-line problem
+- [[discipline-agents]] — multiple specialized agents with distinct roles
+- [[ultrawork]] — aggressive parallel task completion mode
+- [[skill-embedded-mcps]] — MCP servers bundled with skills
 
 ## Links to Topics
 
-- [[AI Agents]]
-- [[Coding Agents]]
+- [[ai-agents]]
+- [[coding-agents]]
 
 ## Quotes Worth Preserving
 

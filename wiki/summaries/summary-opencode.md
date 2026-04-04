@@ -58,14 +58,14 @@ No benchmark results are provided; OpenCode is an open-source engineering projec
 
 ## Links to Concepts
 
-- [[Agent Harness]] — OpenCode is itself a coding agent harness
-- [[Provider-Agnostic Agents]] — key differentiator from Claude Code
-- [[LSP Integration]] — out-of-the-box Language Server Protocol support
+- [[agent-harness]] — OpenCode is itself a coding agent harness
+- [[provider-agnostic-agents]] — key differentiator from Claude Code
+- [[lsp-integration]] — out-of-the-box Language Server Protocol support
 
 ## Links to Topics
 
-- [[AI Agents]]
-- [[Coding Agents]]
+- [[ai-agents]]
+- [[coding-agents]]
 
 ## Quotes Worth Preserving
 

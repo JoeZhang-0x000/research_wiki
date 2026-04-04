@@ -91,19 +91,19 @@ OpenViking departs from flat vector storage RAG by implementing a hierarchical v
 
 ## Links to Concepts
 
-- [[Context Database]] — OpenViking's core abstraction as a database for context
-- [[Filesystem Paradigm]] — context as virtual filesystem with viking:// URIs
-- [[Three-Tier Context]] — L0/L1/L2 abstraction levels
-- [[Recursive Retrieval]] — directory drill-down retrieval strategy
-- [[Visualized Retrieval]] — observable retrieval trajectory
-- [[Self-Evolving Memory]] — automatic session-based memory extraction
-- [[OpenClaw]] — agent framework OpenViking integrates with
+- [[context-database]] — OpenViking's core abstraction as a database for context
+- [[filesystem-paradigm]] — context as virtual filesystem with viking:// URIs
+- [[three-tier-context]] — L0/L1/L2 abstraction levels
+- [[recursive-retrieval]] — directory drill-down retrieval strategy
+- [[visualized-retrieval]] — observable retrieval trajectory
+- [[self-evolving-memory]] — automatic session-based memory extraction
+- [[openclaw]] — agent framework OpenViking integrates with
 
 ## Links to Topics
 
-- [[AI Agents]]
-- [[Context Engineering]]
-- [[Memory Management]]
+- [[ai-agents]]
+- [[context-engineering]]
+- [[memory-management]]
 
 ## Quotes Worth Preserving
 

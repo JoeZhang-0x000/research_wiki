@@ -64,16 +64,16 @@ The MCP server (MemoryOS-MCP) exposes modular tools for easy integration into ex
 
 ## Links to Concepts
 
-- [[Memory Operating System]] — MemoryOS is a concrete realization of OS-inspired memory hierarchy for agents
-- [[Hierarchical Memory]] — short/mid/long-term tiers directly map to this concept
-- [[EMNLP 2025]] — published at EMNLP 2025 Oral, indicating peer-reviewed acceptance
-- [[MCP Server]] — MemoryOS-MCP exposes agent memory via Model Context Protocol
+- [[memory-operating-system]] — MemoryOS is a concrete realization of OS-inspired memory hierarchy for agents
+- [[hierarchical-memory]] — short/mid/long-term tiers directly map to this concept
+- EMNLP 2025 — published at EMNLP 2025 Oral, indicating peer-reviewed acceptance
+- [[mcp-server]] — MemoryOS-MCP exposes agent memory via Model Context Protocol
 
 ## Links to Topics
 
-- [[AI Agents]]
-- [[High-Performance Computing]] (benchmark performance, parallelization)
-- [[Memory Management]]
+- [[ai-agents]]
+- [[high-performance-computing]] (benchmark performance, parallelization)
+- [[memory-management]]
 
 ## Quotes Worth Preserving
 

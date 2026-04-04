@@ -34,7 +34,7 @@ The sources point to two closely related ways of making markdown corpora usable 
 
 ### Direct Filesystem Wikis
 
-This approach uses ordinary directories and markdown files as the core representation. Agents read and write pages directly, while index pages and schemas keep the structure legible enough for autonomous maintenance. The Karpathy thread frames this as a simple but effective alternative to heavier retrieval stacks at moderate corpus sizes.
+This approach uses ordinary directories and markdown files as the core representation. Agents read and write pages directly, while index pages and schemas keep the structure legible enough for autonomous maintenance. The Karpathy thread frames this as a simple but effective alternative to heavier retrieval stacks at moderate corpus sizes. [[markdown-knowledge-base]] is the atomic concept page for this broader topic.
 
 ### Virtualized Filesystem Projections
 

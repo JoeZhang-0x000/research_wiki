@@ -7,6 +7,7 @@ Checks:
   2. Orphan pages — not linked from anywhere
   3. Missing frontmatter fields (title, type, status, sources)
   4. [UNVERIFIED] claims in stable pages
+  5. Similar-name duplicates in raw/ (exact duplicates flagged separately)
 
 Usage:
     python skills/lint.py
@@ -14,14 +15,18 @@ Usage:
 """
 
 import argparse
+import hashlib
 import re
 import sys
+from difflib import SequenceMatcher
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 WIKI_DIR = ROOT / "wiki"
+RAW_DIR = ROOT / "raw"
 REQUIRED = ["title", "type", "status", "sources"]
 EXEMPT = {"index", "AGENTS"}
+RAW_SKIP = {"AGENTS.md"}
 
 
 def wiki_pages() -> list[Path]:
@@ -51,6 +56,39 @@ def frontmatter(text: str) -> dict[str, str]:
     return fields
 
 
+def raw_files() -> list[Path]:
+    return [p for p in sorted(RAW_DIR.glob("*.md")) if p.name not in RAW_SKIP]
+
+
+def normalized_raw_name(path: Path) -> str:
+    stem = path.stem.lower()
+    stem = re.sub(r"\s+\d+$", "", stem)
+    return stem
+
+
+def similarity(a: str, b: str) -> float:
+    return SequenceMatcher(None, a, b).ratio()
+
+
+def raw_duplicate_candidates(files: list[Path]) -> list[tuple[Path, Path, float]]:
+    pairs = []
+    items = [(p, normalized_raw_name(p)) for p in files]
+    for i, (pa, sa) in enumerate(items):
+        for pb, sb in items[i + 1:]:
+            score = similarity(sa, sb)
+            if score >= 0.88:
+                pairs.append((pa, pb, score))
+    return pairs
+
+
+def exact_raw_duplicates(files: list[Path]) -> list[list[Path]]:
+    groups: dict[str, list[Path]] = {}
+    for path in files:
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        groups.setdefault(digest, []).append(path)
+    return [sorted(group) for group in groups.values() if len(group) > 1]
+
+
 def main():
     parser = argparse.ArgumentParser(description="Wiki structural linter")
     parser.add_argument("--strict", action="store_true")
@@ -58,6 +96,7 @@ def main():
 
     pages = wiki_pages()
     pmap = page_map(pages)
+    raw = raw_files()
     issues = 0
 
     # Build link graph
@@ -125,6 +164,25 @@ def main():
         issues += len(unverified)
     else:
         print("## [UNVERIFIED] in stable pages: none\n")
+
+    # 5. raw/ duplicate candidates
+    dup_candidates = raw_duplicate_candidates(raw)
+    exact_dupes = exact_raw_duplicates(raw)
+    if dup_candidates:
+        print(f"## raw/ duplicate candidates ({len(dup_candidates)} pairs)")
+        exact_pairs = {
+            tuple(sorted((group[i].name, group[j].name)))
+            for group in exact_dupes
+            for i in range(len(group))
+            for j in range(i + 1, len(group))
+        }
+        for pa, pb, score in dup_candidates:
+            marker = "exact duplicate" if tuple(sorted((pa.name, pb.name))) in exact_pairs else "similar name"
+            print(f"  {pa.name}  ≈  {pb.name}  ({score:.0%}, {marker})")
+        print()
+        issues += len(dup_candidates)
+    else:
+        print("## raw/ duplicate candidates: none\n")
 
     print(f"---\nTotal issues: {issues}")
     if args.strict and issues > 0:
