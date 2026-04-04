@@ -8,152 +8,102 @@ Covers: **High-Performance Computing**, **AI Infrastructure**, **AI Agents**
 
 ## How It Works
 
-Raw research materials (papers, notes, web captures) flow through a pipeline into a structured, evolving markdown knowledge base.
-
 ```
-raw/  →  ingest  →  compile  →  wiki/
-                                  ↓
-output/  ←  query  ←  wiki/      distill
-  ↓                                ↑
-distill  ────────────────────────→ wiki/
+raw/  →  /digest  →  wiki/  →  /query (inline answer)
+                       ↑              ↓ (if gaps found, user approves)
+                    /distill   /analyze (first-principles report)
 ```
 
-Each loop:
-1. **Collect**: drop source files into `raw/`
-2. **Ingest**: scan and log new files
-3. **Compile**: create wiki pages from sources (LLM-assisted)
-4. **Query**: search wiki, produce output reports
-5. **Distill**: extract new knowledge from reports back into wiki
-6. **Sync**: commit and push wiki changes to GitHub
+- **`raw/`** — source materials (tracked in git)
+- **`wiki/`** — compiled, structured knowledge (tracked in git)
+- **`output/`** — ephemeral scratch space, gitignored
 
 ---
 
 ## Directory Structure
 
 ```
-raw/          Source materials (local only, not synced to git)
-wiki/         Compiled knowledge base (synced)
+raw/          Source materials — append-only, fully tracked
+wiki/
   concepts/   Atomic concept pages
   topics/     Broad topic overview pages
   summaries/  Per-paper / per-source summary pages
   index.md    Master navigation index
-output/       Query reports (synced)
+output/       Ephemeral scratch (gitignored)
 agent/        Pipeline scripts
 skills/       Reusable skill scripts
-schemas/      Page templates
+schemas/      Page templates (concept / topic / summary)
 .claude/commands/  Claude Code slash commands
 ```
 
 ---
 
-## Running the Pipeline
+## Slash Commands
 
-### 1. Ingest new sources
-
-```bash
-python agent/ingest.py           # see what's new
-python agent/ingest.py --new     # only new files
-python agent/ingest.py --mark paper_xyz.md   # mark as ingested
-```
-
-### 2. Compile wiki pages
-
-```bash
-python agent/compile.py                          # see what needs compiling
-python agent/compile.py --stub paper_xyz.md      # create summary stub
-# Then fill in the stub (manually or with LLM agent)
-python agent/compile.py --mark paper_xyz.md wiki/summaries/summary-xyz.md
-```
-
-### 3. Query the wiki
-
-```bash
-python agent/query.py "collective communication"
-python agent/query.py "memory bandwidth" --type concept
-```
-
-Output is written to `output/<query>-report.md`.
-
-### 4. Distill findings
-
-```bash
-python agent/distill.py output/collective-communication-report.md
-# Review the plan, then act on it (with LLM agent or manually)
-```
-
-### 5. Lint
-
-```bash
-python agent/lint.py             # check for issues
-python agent/lint.py --strict    # exit 1 on any issue (for CI)
-```
-
-### 6. Sync to GitHub
-
-```bash
-git add wiki/ output/ raw/*.meta.md
-git commit -m "distill: <topic>"
-git push
-```
-
----
-
-## Claude Code Slash Commands
-
-When working with Claude Code in this repo:
-
-| Command | Description |
+| Command | What it does |
 |---------|-------------|
-| `/query <terms>` | Search wiki and generate report |
-| `/ingest <file>` | Ingest a new source file |
-| `/distill <report>` | Distill output report into wiki |
-| `/lint` | Run linter and fix issues |
-| `/add-skill <name>` | Add a new skill to skills/ |
-
----
-
-## Skills
-
-Reusable scripts live in `skills/`. See `skills/README.md` for the catalog.
-
-To add a skill: `/add-skill <name> <description>` or follow the template in `skills/README.md`.
+| `/digest` | Detect new files in `raw/`, compile into wiki, lint, commit, push |
+| `/query <question>` | Answer inline from wiki — no output file generated |
+| `/analyze <topic>` | Five-pass first-principles analysis → writes to `output/` |
+| `/distill [topic]` | Scan wiki for gaps (broken links, stubs), fill them — user approves before commit |
+| `/lint` | Run linter, surface and fix issues |
+| `/ingest <file>` | Manually ingest a single file |
+| `/add-skill <name>` | Add a new skill to `skills/` |
 
 ---
 
 ## Typical Workflow
 
 ```bash
-# 1. Drop source files into raw/
-cp ~/Downloads/paper_megatron-2021.pdf raw/
-cp ~/notes/llm-serving-thoughts.md raw/
+# Drop source files into raw/
+cp ~/Downloads/paper_xyz.pdf raw/
 
-# 2. Run digest (Claude Code slash command)
+# Compile into wiki (one command)
 # /digest
-#
-# Claude will:
-#   - detect new files via `python agent/ingest.py --new`
-#   - read each file and write wiki/summaries/ + wiki/concepts/ pages
-#   - update wiki/index.md
-#   - run lint, fix issues
-#   - git add wiki/ raw/ && git commit -m "digest: ..." && git push
+
+# Ask a question
+# /query how does X work?
+
+# Deep analysis
+# /analyze X
+
+# Fill wiki gaps
+# /distill
 ```
 
-That's it. One command handles the full loop.
+After `/digest` or `/distill`, changes are committed and pushed automatically (with user approval).
+
+---
+
+## Pipeline Scripts (low-level)
+
+```bash
+python agent/ingest.py           # scan raw/, report status
+python agent/compile.py          # check what needs compiling
+python agent/query.py "term"     # keyword search across wiki/
+python agent/distill.py          # surface gaps from lint output
+python agent/lint.py             # check orphans, broken links, missing frontmatter
+```
+
+---
+
+## Skills
+
+Reusable scripts in `skills/`. See `skills/README.md`.
+
+Add via `/add-skill <name> <description>`.
 
 ---
 
 ## Opening in Obsidian
 
-Open the repo root as an Obsidian vault. All `[[links]]` are Obsidian-compatible.
-Use the Graph View to explore concept clusters.
-
-Recommended plugins: Dataview (for dynamic indexes), Obsidian Git (for auto-sync).
+Open repo root as a vault. All `[[links]]` are Obsidian-compatible.
+Recommended plugins: Dataview, Obsidian Git.
 
 ---
 
 ## Notes
 
-- `raw/` is excluded from git to prevent repo bloat. Keep source files local.
-- `raw/*.meta.md` sidecar files ARE tracked — they record ingestion state.
-- All wiki pages use YAML frontmatter compatible with Obsidian and Dataview.
-- Agent behavior rules are in `AGENTS.md` (root, raw/, wiki/) and `CLAUDE.md`.
+- `output/` is gitignored — analysis reports and query scratch are local only
+- All wiki pages have YAML frontmatter with a `links:` field for original URLs (Obsidian Clipper)
+- Agent rules: `AGENTS.md` (root / raw/ / wiki/) and `CLAUDE.md`
