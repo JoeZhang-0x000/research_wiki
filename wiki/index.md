@@ -118,6 +118,10 @@ The following concepts are useful follow-up pages for expanding the wiki:
 | [[summary-open-harness]] | open-harness repository (MaxGfeller, 2026) | [[agent-memory-systems]] |
 | [[summary-opencode]] | opencode repository (anomalyco, 2026) | [[agent-memory-systems]] |
 | [[summary-openviking]] | OpenViking repository (volcengine, 2026) | [[agent-memory-systems]] |
+| [[summary-claude-code-hooks]] | Claude Code hooks thread (zodchiii, 2026) | [[coding-agents]] |
+| [[summary-anthropic-diff-tool]] | Anthropic model diffing research (2026) | [[ai-agents]] |
+| [[summary-perplexica]] | Perplexica search engine (BunsDev, 2026) | [[ai-agents]] |
+| [[summary-nvidia-llm-router]] | NVIDIA LLM Router blueprint (2026) | [[ai-agents]] |
 
 ---
 
