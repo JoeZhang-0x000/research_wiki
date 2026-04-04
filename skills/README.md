@@ -16,6 +16,7 @@ python skills/<name>.py --help
 | `search.py` | Keyword search across wiki/ — stdout only, no files written |
 | `lint.py` | Structural checks: broken links, orphans, missing frontmatter, [UNVERIFIED] in stable pages |
 | `stub.py` | Create a blank wiki page from a schema template |
+| `reorganize.py` | Detect and fix Obsidian graph issues: broken links (fuzzy-matched), orphans, likely duplicates |
 
 ---
 

@@ -26,15 +26,38 @@ ls skills/
 python skills/<name>.py --help
 ```
 
-Built-in: `ingest.py`, `search.py`, `lint.py`, `stub.py`
+Built-in: `ingest.py`, `search.py`, `lint.py`, `stub.py`, `reorganize.py`
 
 ---
 
-## Core Rule: Ask Before Touching Wiki
+## Output vs Wiki — Hard Boundary
 
-After any analysis, query, or `/analyze` report — **always ask the user** before modifying wiki pages.
+This is the most important rule. When deciding where to write:
 
-Exception: `/digest` is an explicit ingest command and implies consent.
+| User intent | Destination | Examples |
+|-------------|-------------|---------|
+| "Generate / write me a report on X" | `output/` | research reports, analysis, summaries on demand |
+| "Analyze X" | `output/` | `/analyze` results |
+| "What does the wiki say about X" | conversation only | `/query` answers |
+| New raw source was ingested | `wiki/summaries/` + `wiki/concepts/` | via `/digest` only |
+| Filling a gap found by lint | `wiki/` | via `/distill` only |
+
+**If the user asks you to generate, research, or produce content → `output/`, never `wiki/`.**
+**`wiki/` is only modified through the structured pipeline: `/digest` or `/distill`.**
+
+No exceptions. Even if the output looks like a concept page — if the user requested it, it goes to `output/`.
+
+---
+
+## Command → Destination Map
+
+| Command | Writes to |
+|---------|-----------|
+| `/digest` | `wiki/` (summaries + concepts from raw/) |
+| `/distill` | `wiki/` (fill lint-detected gaps, with user approval) |
+| `/analyze` | `output/` (one analysis file) |
+| `/query` | conversation only |
+| `/reorganize` | `wiki/` in-place (fix broken links only) |
 
 ---
 

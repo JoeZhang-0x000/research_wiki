@@ -46,8 +46,23 @@ python skills/<name>.py --help
 | `skills/search.py` | Keyword search across wiki/ — stdout only |
 | `skills/lint.py` | Structural checks: broken links, orphans, missing frontmatter |
 | `skills/stub.py` | Create a blank wiki page from a schema template |
+| `skills/reorganize.py` | Detect + fix Obsidian graph issues (broken links, orphans, duplicates) |
 
 To add a skill: create `skills/<name>.py`, add to `skills/README.md`.
+
+---
+
+## Output vs Wiki — Hard Boundary
+
+| User intent | Destination |
+|-------------|-------------|
+| User asks to generate / research / report on X | `output/` |
+| New raw source ingested | `wiki/` via `/digest` only |
+| Filling lint-detected gaps | `wiki/` via `/distill` only |
+| Query answer | conversation only |
+
+**`wiki/` is only modified through the pipeline (`/digest`, `/distill`, `/reorganize`).**
+**Never write to `wiki/` in response to a user request for generated content.**
 
 ---
 
@@ -72,7 +87,7 @@ No sidecar files. No registry. State is implicit in the wiki.
 - Deleting wiki pages — use `status: deprecated`
 - Inventing facts — use `[UNVERIFIED]`
 - Adding sidecar/meta files to `raw/`
-- Writing to `wiki/` without explicit user approval after analysis or query
+- Writing to `wiki/` in response to a user request for a report, analysis, or generated content
 - Committing `output/`
 
 ---
