@@ -1,56 +1,41 @@
-Run a full digest cycle: detect new files in raw/, compile them into wiki pages, lint, commit, and push.
+Detect new files in raw/, compile them into wiki pages, lint, commit, push.
 
 Usage: /digest
 
 ## Steps
 
 ### 1. Detect new files
-Run: `python agent/ingest.py --new`
+Run: `python skills/ingest.py --new`
 
-If output says "0 new" → tell the user "Nothing new in raw/ to digest." and stop.
+If output says 0 new → tell the user "Nothing new to digest." and stop.
 
-### 2. For each new file listed:
+### 2. For each new file:
 
-a. **Read the file** at `raw/<filename>` to understand its content.
+a. **Read the file** at `raw/<filename>`.
 
-b. **Mark as ingested**:
-   `python agent/ingest.py --mark <filename>`
+b. **Create a summary page** in `wiki/summaries/` using `schemas/summary.md`.
+   - Use `python skills/stub.py summary "<filename>"` to create the file.
+   - Fill in ALL sections. No placeholders.
+   - Set `sources: raw/<filename>` and `links:` to the original URL if present in the file.
+   - Use `[[PageName]]` links to related concepts and topics.
 
-c. **Create a summary page** in `wiki/summaries/` using `schemas/summary.md`.
-   - Fill in ALL sections with real content synthesized from the file.
-   - Do not leave placeholder text.
-   - Use `[[PageName]]` links for any concepts or topics it relates to.
+c. **Create or update concept pages** for new concepts introduced.
+   - Use `python skills/stub.py concept "<name>"` for new pages.
+   - If the concept already exists in wiki/, update it instead.
+   - Mark uncertain claims `[UNVERIFIED]`.
 
-d. **Create or update concept pages** for any new concepts introduced.
-   - Check `wiki/index.md` first — if the concept already exists, update it.
-   - If new, create `wiki/concepts/<slug>.md` using `schemas/concept.md`.
-   - Fill in all sections. Mark uncertain claims `[UNVERIFIED]`.
-
-e. **Update existing topic pages** if the file adds to a known topic area.
-   - Add the paper to the "Landscape" table and "Important References" section.
-
-f. **Record compilation**:
-   `python agent/compile.py --mark <filename> wiki/summaries/<summary-slug>.md`
+d. **Update existing topic pages** if this source adds to a known area.
 
 ### 3. Update the index
-Open `wiki/index.md` and add entries for every new page created.
+Add all new pages to `wiki/index.md`.
 
 ### 4. Lint
-Run: `python agent/lint.py`
-
-Fix any issues before continuing:
-- Broken `[[links]]` → create stub pages or fix the link target name
-- Orphan pages → add to `wiki/index.md`
-- Missing frontmatter → add required fields
+Run: `python skills/lint.py`
+Fix all issues before continuing.
 
 ### 5. Commit and push
 ```bash
-git add wiki/ output/ raw/
-git commit -m "digest: <comma-separated list of source titles>"
+git add wiki/ raw/
+git commit -m "digest: <comma-separated source titles>"
 git push
 ```
-
-## Notes
-- Process ALL new files in one digest run, not one at a time.
-- If a file is a PDF or binary that you cannot read directly, note it and skip — the user will use a skill to convert it first.
-- If two new files cover the same concept, write one shared concept page and link both summaries to it.

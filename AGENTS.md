@@ -1,19 +1,18 @@
 # AGENTS.md — research_wiki
 
 This file is read by all AI coding agents (Claude Code, OpenAI Codex, Gemini CLI, etc.)
-operating in this repository. Follow these rules precisely.
 
 ---
 
 ## Mission
 
 Convert raw AI research materials into a structured, evolving markdown knowledge base.
-The knowledge base covers three domains: **High-Performance Computing (HPC)**, **AI Infrastructure**, and **AI Agents**.
-
-The system operates as a closed loop:
+Domains: **High-Performance Computing (HPC)**, **AI Infrastructure**, **AI Agents**.
 
 ```
-collect → ingest → compile → query → output → distill → wiki → repeat
+raw/  →  /digest  →  wiki/  →  /query (inline)
+                       ↑              ↓ user approves
+                    /distill      /analyze → output/
 ```
 
 ---
@@ -21,124 +20,99 @@ collect → ingest → compile → query → output → distill → wiki → rep
 ## Directory Semantics
 
 ```
-raw/          Source materials. Append-only. Never edit existing files.
-wiki/         Compiled knowledge pages. Structured. Evolve via rules only.
-  concepts/   Atomic knowledge units (one concept per file)
-  topics/     Broader topic overviews (aggregate multiple concepts)
-  summaries/  Per-source summaries (one per raw file or paper)
-output/       Ephemeral scratch space. Not committed to git. Use for temp notes only.
-agent/        Pipeline scripts. Edit with care.
-skills/       Reusable capability scripts. Extend freely. READ THIS FIRST.
-schemas/      Markdown templates. Treat as stable contracts.
-.claude/commands/  Claude Code slash commands. Wraps skills/.
+raw/          Source materials. Append-only. Never edit existing files. Fully tracked in git.
+wiki/         Compiled knowledge. Evolve via rules. Tracked in git.
+  concepts/   Atomic knowledge units
+  topics/     Broader topic overviews
+  summaries/  Per-source summaries — ingestion state lives here
+output/       Ephemeral scratch. Gitignored. Never commit.
+skills/       All executable logic. Check here first.
+schemas/      Markdown templates. Stable contracts.
+.claude/commands/  Slash commands. Wrap skills/.
 ```
 
 ---
 
-## Skills System — READ BEFORE IMPLEMENTING ANYTHING
+## Skills — Check Before Implementing
 
-**`skills/` is the shared capability library for all agents.**
-
-Before writing any new functionality, run:
 ```bash
 ls skills/
+python skills/<name>.py --help
 ```
-and read the docstrings of relevant scripts. Do not reimplement existing skills.
 
-Each skill:
-- Is a standalone Python script with a CLI (`--help` supported)
-- Has a module-level docstring describing inputs, outputs, and behavior
-- Can be called from any agent script or slash command
+| Skill | Purpose |
+|-------|---------|
+| `skills/ingest.py` | Find raw/ files not yet referenced by wiki/summaries/ |
+| `skills/search.py` | Keyword search across wiki/ — stdout only |
+| `skills/lint.py` | Structural checks: broken links, orphans, missing frontmatter |
+| `skills/stub.py` | Create a blank wiki page from a schema template |
 
-To add a skill: create `skills/<name>.py`, add an entry to `skills/README.md`.
+To add a skill: create `skills/<name>.py`, add to `skills/README.md`.
 
 ---
 
-## Allowed Actions
+## Ingestion State
 
-- `raw/`: append new files only. Never modify existing ones.
-- `wiki/`: create new pages or update existing ones following schemas in `schemas/`
-- `output/`: write or overwrite reports freely
-- `agent/`: run scripts, modify pipeline logic carefully
-- `skills/`: add new skills, never remove existing ones without checking dependents
-- `wiki/index.md`: always update when adding a new wiki page
+A raw file is **compiled** when any `wiki/summaries/` page lists it in `sources:`.
+No sidecar files. No registry. State is implicit in the wiki.
 
-## Forbidden Actions
+---
 
-- Editing any existing file in `raw/`
-- Deleting wiki pages (use `status: deprecated` instead)
-- Inventing facts — use `[UNVERIFIED]` for uncertain claims
-- Stripping `[[links]]` from wiki pages without replacement
-- Using external databases, vector stores, or non-standard dependencies
-- **Writing to wiki/ without explicit user approval** — always ask first after any analysis or query
+## Allowed
+
+- `raw/`: append files only
+- `wiki/`: create/update pages per schemas — **with user approval after any analysis**
+- `output/`: write freely, never commit
+- `skills/`: add skills, never remove without checking dependents
+- Always update `wiki/index.md` when adding a page
+
+## Forbidden
+
+- Editing existing files in `raw/`
+- Deleting wiki pages — use `status: deprecated`
+- Inventing facts — use `[UNVERIFIED]`
+- Adding sidecar/meta files to `raw/`
+- Writing to `wiki/` without explicit user approval after analysis or query
+- Committing `output/`
 
 ---
 
 ## Wiki Page Rules
 
-1. Every page must conform to its schema (`schemas/concept.md`, `schemas/topic.md`, `schemas/summary.md`)
-2. Every page must have YAML frontmatter with at least: `title`, `type`, `status`, `sources`
-3. Internal links use `[[PageName]]` syntax
-4. No orphan pages — every new page must be linked from at least one other page or `wiki/index.md`
-5. `status` values: `draft` | `stable` | `deprecated`
+1. Every page conforms to its schema in `schemas/`
+2. Required frontmatter: `title`, `type`, `status`, `sources`, `links`
+3. Internal links: `[[PageName]]` syntax
+4. No orphans — every new page linked from at least one other or `wiki/index.md`
+5. `status`: `draft` | `stable` | `deprecated`
 
 ---
 
-## Distillation Policy
+## Provenance
 
-When an `output/` report contains reusable knowledge:
-1. Identify facts that generalize beyond the specific query
-2. Map them to existing concept/topic pages and update, or create new pages
-3. Never copy-paste verbatim — synthesize and structure
-4. Record provenance in the `sources` frontmatter field
+- `sources:` lists raw files or URLs this page was compiled from
+- `links:` lists original web URLs (Obsidian Clipper)
+- Uncertain claims: `[UNVERIFIED]` — must be resolved before `status: stable`
 
 ---
 
-## Provenance Rules
-
-- Every wiki page must trace back to at least one file in `raw/` or an external URL
-- Cite sources in frontmatter `sources` field as a list
-- If a claim has no traceable source, mark it `[UNVERIFIED]`
-- Resolve all `[UNVERIFIED]` markers before setting `status: stable`
-
----
-
-## Pipeline Scripts
-
-Run in order for a full loop iteration:
+## Git Conventions
 
 ```bash
-python agent/ingest.py          # scan raw/, list new items
-python agent/compile.py         # create/update wiki pages from raw/
-python agent/query.py "topic"   # search wiki/, write report to output/
-python agent/distill.py <file>  # extract knowledge from output/ → wiki/
-python agent/lint.py            # check for orphans, broken links, empty sections
-```
-
----
-
-## Git Sync Rules
-
-**The primary workflow is `/digest` (Claude Code) or following the digest steps manually.**
-After every digest that modifies `wiki/`, commit and push.
-
-`raw/` is tracked in git. Source files, sidecar `.meta.md` files, and `raw/AGENTS.md` are all committed.
-
-### Commit convention after digest
-
-```bash
+# After digest
 git add wiki/ raw/
-git commit -m "digest: <comma-separated source titles>"
+git commit -m "digest: <titles>"
 git push
-```
 
-### Commit convention after adding a skill
+# After filling wiki gaps
+git add wiki/
+git commit -m "distill: <what was filled>"
+git push
 
-```bash
+# After adding a skill
 git add skills/ .claude/commands/
-git commit -m "skill: add <skill-name>"
+git commit -m "skill: add <name>"
 git push
 ```
 
-Do NOT bundle wiki changes with skills changes in a single commit.
-Do NOT push if `python agent/lint.py` reports errors.
+Run `python skills/lint.py` before every push. Do not push with lint errors.
+Do not bundle wiki changes with skill changes.

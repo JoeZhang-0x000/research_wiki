@@ -1,55 +1,45 @@
-# Skills — Shared Capability Library
+# Skills
 
-This directory contains reusable skill scripts callable by any agent (Claude Code, Codex, etc.) or pipeline script.
+Shared capability library. Check here before implementing anything.
 
-**Before implementing any repeated operation, check here first.**
-
----
-
-## Available Skills
-
-| Script | Description | CLI Example |
-|--------|-------------|-------------|
-| *(none yet — add your first skill below)* | | |
+```
+python skills/<name>.py --help
+```
 
 ---
 
-## How to Add a Skill
+## Built-in Skills
 
-1. Create `skills/<name>.py` with:
-   - A module-level docstring describing: purpose, inputs, outputs, dependencies
-   - A `main()` function with argparse (`--help` must work)
-   - No side effects when imported (guard with `if __name__ == "__main__"`)
-
-2. Add a row to the table above.
-
-3. Optionally add `.claude/commands/<name>.md` for a Claude Code slash command wrapper.
+| Script | Description |
+|--------|-------------|
+| `ingest.py` | Find raw/ files not yet referenced by any wiki/summaries/ page |
+| `search.py` | Keyword search across wiki/ — stdout only, no files written |
+| `lint.py` | Structural checks: broken links, orphans, missing frontmatter, [UNVERIFIED] in stable pages |
+| `stub.py` | Create a blank wiki page from a schema template |
 
 ---
 
-## Skill Template
+## Adding a Skill
 
+1. Create `skills/<name>.py` with a module docstring (purpose / inputs / outputs / deps) and `--help`
+2. Add a row to the table above
+3. Optionally add `.claude/commands/<name>.md` for a slash command wrapper
+
+Template:
 ```python
 #!/usr/bin/env python3
 """
 <name>.py — <one-line description>
 
-Inputs:  <what it reads>
-Outputs: <what it writes / prints>
-Deps:    <pip packages required, if any>
-
-Usage:
-    python skills/<name>.py <args>
-    python skills/<name>.py --help
+Inputs:  ...
+Outputs: stdout only (or: writes to <location>)
+Deps:    <pip packages, if any>
 """
-
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description="<description>")
-    # add arguments
+    parser = argparse.ArgumentParser(description="...")
     args = parser.parse_args()
-    # implement
 
 if __name__ == "__main__":
     main()
@@ -57,10 +47,8 @@ if __name__ == "__main__":
 
 ---
 
-## Planned Skills (add as needed)
+## Planned
 
-- `fetch-arxiv.py` — fetch paper metadata and abstract from arxiv by ID or URL
-- `parse-pdf.py` — convert a PDF to markdown using a local tool
-- `fetch-webpage.py` — fetch and clean a webpage to markdown (via Jina or trafilatura)
-- `youtube-transcript.py` — extract transcript from a YouTube video URL
-- `watch-raw.py` — watch raw/ for new files and auto-run ingest
+- `fetch-arxiv.py` — fetch paper metadata and abstract by arxiv ID or URL
+- `fetch-page.py` — fetch and clean a webpage to markdown
+- `youtube-transcript.py` — extract transcript from YouTube URL
