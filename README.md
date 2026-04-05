@@ -2,11 +2,20 @@
 
 LLM-native markdown knowledge base starter.
 
-This repository is a clean scaffold for building a grounded, file-native knowledge system with `raw/`, `wiki/`, and small local automation in `skills/`.
+This repository is a clean scaffold for building a grounded, file-native knowledge system with `raw/`, `wiki/`, `output/`, and small local automation in `skills/`.
 
----
+## Who This Is For
 
-## How It Works
+- Humans: use this as a starter for a markdown-first knowledge base
+- Agents: use the repo workflow and local scripts to ingest, compile, search, and verify knowledge
+
+## Read This First
+
+- Human guide: `README.md`
+- Agent quickstart: `README.agent.md`
+- Agent hard rules: `AGENTS.md`
+
+## Core Flow
 
 ```text
 raw/  ->  /digest  ->  wiki/
@@ -15,23 +24,24 @@ raw/  ->  /digest  ->  wiki/
                       ->  /distill   fill structural gaps
 ```
 
+## Repository Layout
+
 - `raw/` stores source material
 - `wiki/` stores compiled knowledge pages
-- `output/` stores ephemeral generated work and is never committed
+- `output/` stores scratch output and should not be committed
 - `skills/` stores executable local workflows
 - `schemas/` stores stable page templates
-
-Ingestion state is structural: a raw file is considered compiled when a `wiki/summaries/` page references it in `sources:`.
+- `.claude/commands/` stores command wrappers for agent workflows
 
 ## Getting Started
 
-1. Drop source files into `raw/`
-2. Run `python skills/ingest.py --new` to see what is not yet compiled
-3. Run `python skills/digest.py --list` to preview summary file names
-4. Create or update wiki pages with the schema-backed workflow
+1. Add source files to `raw/`
+2. Run `python skills/ingest.py --new`
+3. Preview summary naming with `python skills/digest.py --list`
+4. Build or update `wiki/` pages through the structured workflow
 5. Run `python skills/lint.py` before committing
 
-Useful commands:
+## Useful Commands
 
 ```bash
 python skills/ingest.py
@@ -42,22 +52,15 @@ python skills/evidence.py "example question" --json
 python skills/lint.py
 ```
 
-## Grounded Answers
+## Customize It
 
-- Build an evidence bundle before answering questions or writing analyses
-- Treat `wiki/summaries/` as the primary evidence layer
-- Cite evidence ids such as `[S1]` for substantive claims
-- If the wiki does not cover a question well enough, stop and report the gap
-
-## Customization
-
-- Edit `AGENTS.md` to set project rules
-- Edit `schemas/concept.md`, `schemas/topic.md`, and `schemas/summary.md` to match your knowledge model
-- Adjust `.claude/commands/` if you want different agent workflows
-- Extend `skills/` with repo-specific ingestion, linting, or provenance tools
+- Edit `schemas/concept.md`, `schemas/topic.md`, and `schemas/summary.md`
+- Edit `AGENTS.md` to match your project rules
+- Adjust `.claude/commands/` for your preferred workflows
+- Extend `skills/` with domain-specific automation
 
 ## Notes
 
-- `output/` is scratch space and should stay untracked
-- `wiki/` is intended to evolve through the structured pipeline, not ad hoc report generation
+- `wiki/` is for durable compiled knowledge, not ad hoc reports
+- `output/` is disposable scratch space
 - Obsidian-style `[[links]]` are supported throughout the wiki
