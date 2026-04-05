@@ -133,6 +133,7 @@ The following concepts are useful follow-up pages for expanding the wiki:
 | [[summary-anthropic-diff-tool]] | Anthropic model diffing research (2026) | [[ai-agents]] |
 | [[summary-thread-by-yoonholeee]] | Meta-Harness author announcement thread (2026) | [[ai-agents]] |
 | [[summary-perplexica]] | Perplexica search engine (BunsDev, 2026) | [[ai-agents]] |
+| [[summary-how-to-build-your-second-brain]] | Karpathy-inspired second brain: three folders + schema file + AI compilation (2026) | [[markdown-knowledge-bases]] |
 | [[summary-nvidia-llm-router]] | NVIDIA LLM Router blueprint (2026) | [[ai-agents]] |
 | [[summary-kvmix-gradient-based-layer-importance-kv-cache-2025]] | Gradient-based layer importance mixed-precision KV cache quantization (2025) | [[llm-quantization]] |
 | [[summary-bitdecoding-tensor-cores-long-context-2025]] | Low-bit KV cache with tensor core optimization for long-context decoding (2025) | [[llm-quantization]] |
