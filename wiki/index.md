@@ -21,6 +21,7 @@ Knowledge base covering: **High-Performance Computing**, **AI Infrastructure**, 
 | [[graph-rag-systems]] | Retrieval systems that combine vector search with explicit graph structure | draft |
 | [[gpu-memory-optimization]] | Techniques for reducing GPU memory usage and improving bandwidth utilization | draft |
 | [[high-performance-computing]] | Hardware-aware performance work across AI infrastructure and memory-heavy systems | draft |
+| [[llm-quantization]] | Methods for quantizing LLM weights, activations, and KV cache to reduce memory and accelerate inference | draft |
 | [[markdown-knowledge-bases]] | File-native knowledge workflows built from raw markdown sources, summaries, and indexes | draft |
 | [[memory-management]] | Storage, updating, retrieval, and lifecycle control for agent memory systems | draft |
 
@@ -133,6 +134,29 @@ The following concepts are useful follow-up pages for expanding the wiki:
 | [[summary-thread-by-yoonholeee]] | Meta-Harness author announcement thread (2026) | [[ai-agents]] |
 | [[summary-perplexica]] | Perplexica search engine (BunsDev, 2026) | [[ai-agents]] |
 | [[summary-nvidia-llm-router]] | NVIDIA LLM Router blueprint (2026) | [[ai-agents]] |
+| [[summary-kvmix-gradient-based-layer-importance-kv-cache-2025]] | Gradient-based layer importance mixed-precision KV cache quantization (2025) | [[llm-quantization]] |
+| [[summary-bitdecoding-tensor-cores-long-context-2025]] | Low-bit KV cache with tensor core optimization for long-context decoding (2025) | [[llm-quantization]] |
+| [[summary-kvtuner-sensitivity-aware-kv-cache-2025]] | Auto-tuning per-layer precision for KV cache quantization (2025) | [[llm-quantization]] |
+| [[summary-sageattention-8bit-attention-2024]] | Accurate 8-bit attention for plug-and-play inference acceleration (2024) | [[llm-quantization]] |
+| [[summary-flexq-int6-llm-serving-2025]] | INT6 quantization via algorithm-system co-design for LLM serving (2025) | [[llm-quantization]] |
+| [[summary-abq-llm-arbitrary-bit-quantization-2024]] | Arbitrary bit-width quantization for LLM inference (2024) | [[llm-quantization]] |
+| [[summary-hcattention-extreme-kv-cache-compression-2025]] | Extreme KV cache compression via heterogeneous attention (2025) | [[llm-quantization]] |
+| [[summary-binary-weight-activation-llm-ptq-2025]] | Binary weight and activation quantization post-training (2025) | [[llm-quantization]] |
+| [[summary-bitnet-v2-4bit-activations-hadamard-2025]] | Native 4-bit activations for 1-bit LLMs via Hadamard transformation (2025) | [[llm-quantization]] |
+| [[summary-kvquant-10m-context-2024]] | 3-bit KV cache quantization enabling 10M context length (NeurIPS 2024) | [[llm-quantization]] |
+| [[summary-qserv-w4a8kv4-llm-serving-2024]] | W4A8KV4 system co-design: 3x dollar cost reduction for LLM serving (2024) | [[llm-quantization]] |
+| [[summary-compression-scaling-laws-unifying-2025]] | Unified scaling laws for sparsity and quantization compression (2025) | [[llm-quantization]] |
+| [[summary-channel-wise-mixed-precision-quantization-2024]] | Channel-wise mixed-precision weight quantization (2024) | [[llm-quantization]] |
+| [[summary-bitnet-cpu-inference-2024]] | bitnet.cpp: fast BitNet b1.58 inference on CPUs (2024) | [[llm-quantization]] |
+| [[summary-daq-density-aware-weight-only-2024]] | Density-aware weight-only quantization with 22.8% less perplexity loss (2024) | [[llm-quantization]] |
+| [[summary-stbllm-structured-binary-2024]] | Structured binary LLMs breaking the 1-bit barrier (2024) | [[llm-quantization]] |
+| [[summary-kivi-2bit-kv-cache-2024]] | Tuning-free 2-bit KV cache: per-channel Key, per-token Value (ICML 2024) | [[llm-quantization]] |
+| [[summary-smoothquant-8bit-llm-2022]] | W8A8 quantization via outlier migration: 530B on single node (ICML 2023) | [[llm-quantization]] |
+| [[summary-wkvquant-weight-kv-cache-2024]] | Joint weight and KV cache quantization (2024) | [[llm-quantization]] |
+| [[summary-finequant-fine-grained-weight-only-2023]] | Adaptive fine-grained granularity for weight-only quantization (2023) | [[llm-quantization]] |
+| [[summary-gptq-accurate-post-training-2022]] | GPTQ: 175B in 4 GPU hours to 4-bit, ICLR 2023 | [[llm-quantization]] |
+| [[summary-atom-lowbit-quantization-2023]] | W4A4 serving: 7.7x throughput vs FP16 (2023) | [[llm-quantization]] |
+| [[summary-neural-machine-translation-4bit-2019]] | Early 4-bit NMT quantization with log quantization and error feedback (2019) | [[llm-quantization]] |
 
 ---
 
