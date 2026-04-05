@@ -1,59 +1,56 @@
 # Skills
 
-Shared capability library. Check here before implementing anything.
+Shared capability library for this knowledge-base scaffold.
 
-```
+```bash
 python skills/<name>.py --help
 ```
-
----
 
 ## Built-in Skills
 
 | Script | Description |
 |--------|-------------|
-| `backfill_provenance.py` | Repair stale raw references and missing summary links across wiki/ |
-| `digest.py` | Full ingestion pipeline: rename new raw files + create summary stubs |
-| `evidence.py` | Build grounded evidence bundles from wiki/ pages and raw/ provenance |
-| `ingest.py` | Find raw/ files not yet referenced by any wiki/summaries/ page |
-| `rename.py` | Slugify raw/ filenames based on frontmatter title — updates wiki refs |
-| `search.py` | Keyword search across wiki/ — stdout only, no files written |
-| `lint.py` | Structural checks: broken links, orphans, missing frontmatter, [UNVERIFIED] in stable pages, raw/ duplicate-name warnings |
+| `backfill_provenance.py` | Repair stale `raw/` references and missing summary links |
+| `digest.py` | Preview or create summary stubs for new raw files |
+| `evidence.py` | Build grounded evidence bundles from `wiki/` and `raw/` |
+| `ingest.py` | Find raw files not yet referenced by summary pages |
+| `rename.py` | Slugify raw filenames based on frontmatter title |
+| `search.py` | Keyword search across wiki pages |
+| `lint.py` | Structural checks for links, frontmatter, provenance, and unresolved markers |
 | `stub.py` | Create a blank wiki page from a schema template |
-| `reorganize.py` | Detect and fix Obsidian graph issues: broken links (fuzzy-matched), orphans, likely duplicates, exact duplicate raw/ sources |
-
----
+| `reorganize.py` | Detect and fix graph issues such as broken links and likely duplicates |
 
 ## Adding a Skill
 
-1. Create `skills/<name>.py` with a module docstring (purpose / inputs / outputs / deps) and `--help`
+1. Create `skills/<name>.py`
 2. Add a row to the table above
-3. Optionally add `.claude/commands/<name>.md` for a slash command wrapper
+3. Optionally add `.claude/commands/<name>.md`
+4. Confirm the script runs with `--help`
 
 Template:
+
 ```python
 #!/usr/bin/env python3
 """
 <name>.py — <one-line description>
 
 Inputs:  ...
-Outputs: stdout only (or: writes to <location>)
-Deps:    <pip packages, if any>
+Outputs: stdout only (or writes to a specific location)
+Deps:    ...
 """
 import argparse
 
 def main():
     parser = argparse.ArgumentParser(description="...")
-    args = parser.parse_args()
+    parser.parse_args()
 
 if __name__ == "__main__":
     main()
 ```
 
----
+## Suggested Extensions
 
-## Planned
-
-- `fetch-arxiv.py` — fetch paper metadata and abstract by arxiv ID or URL
-- `fetch-page.py` — fetch and clean a webpage to markdown
-- `youtube-transcript.py` — extract transcript from YouTube URL
+- A fetcher for external sources
+- A domain-specific normalizer for raw files
+- Project-specific lint rules
+- A richer distillation workflow for topic and concept pages

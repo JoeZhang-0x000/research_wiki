@@ -1,74 +1,63 @@
-# research_wiki
+# knowledge-wiki-starter
 
-LLM-native knowledge base for AI research — HPC, AI Infra, Agents.
+LLM-native markdown knowledge base starter.
+
+This repository is a clean scaffold for building a grounded, file-native knowledge system with `raw/`, `wiki/`, and small local automation in `skills/`.
 
 ---
 
 ## How It Works
 
-```
-raw/  →  /digest  →  wiki/
-                       ↓
-                   /query     answer inline
-                   /analyze   first-principles report → output/
-                   /distill   fill wiki gaps
+```text
+raw/  ->  /digest  ->  wiki/
+                      ->  /query     answer inline
+                      ->  /analyze   grounded report -> output/
+                      ->  /distill   fill structural gaps
 ```
 
-- `raw/` — source materials (Obsidian Clipper, papers, notes)
-- `wiki/` — compiled, structured knowledge
-- `output/` — ephemeral scratch, gitignored
+- `raw/` stores source material
+- `wiki/` stores compiled knowledge pages
+- `output/` stores ephemeral generated work and is never committed
+- `skills/` stores executable local workflows
+- `schemas/` stores stable page templates
 
-Ingestion state is structural: a raw file is *compiled* when any `wiki/summaries/` page lists it in `sources:`. No sidecar files.
+Ingestion state is structural: a raw file is considered compiled when a `wiki/summaries/` page references it in `sources:`.
+
+## Getting Started
+
+1. Drop source files into `raw/`
+2. Run `python skills/ingest.py --new` to see what is not yet compiled
+3. Run `python skills/digest.py --list` to preview summary file names
+4. Create or update wiki pages with the schema-backed workflow
+5. Run `python skills/lint.py` before committing
+
+Useful commands:
+
+```bash
+python skills/ingest.py
+python skills/digest.py --list
+python skills/stub.py concept "example-concept"
+python skills/search.py "example term"
+python skills/evidence.py "example question" --json
+python skills/lint.py
+```
 
 ## Grounded Answers
 
-- Run `python skills/evidence.py "<question>" --json` before `/query` or `/analyze`
-- Generated answers must be grounded in `wiki/` only
-- Every substantive claim should cite evidence ids such as `[S1]`
-- If the wiki lacks coverage, report the gap instead of filling it from model priors
+- Build an evidence bundle before answering questions or writing analyses
+- Treat `wiki/summaries/` as the primary evidence layer
+- Cite evidence ids such as `[S1]` for substantive claims
+- If the wiki does not cover a question well enough, stop and report the gap
 
----
+## Customization
 
-## Slash Commands
+- Edit `AGENTS.md` to set project rules
+- Edit `schemas/concept.md`, `schemas/topic.md`, and `schemas/summary.md` to match your knowledge model
+- Adjust `.claude/commands/` if you want different agent workflows
+- Extend `skills/` with repo-specific ingestion, linting, or provenance tools
 
-| Command | What it does |
-|---------|-------------|
-| `/digest` | Find new raw/ files → compile into wiki → lint → commit → push |
-| `/query <question>` | Answer inline from wiki. No files written. |
-| `/analyze <topic>` | Five-pass first-principles analysis → `output/analysis-*.md` |
-| `/distill [topic]` | Scan wiki for gaps, fill with user approval |
-| `/lint` | Run linter, fix issues |
-| `/add-skill <name>` | Add a new skill to `skills/` |
+## Notes
 
----
-
-## Skills
-
-Executable logic lives in `skills/`. Always check before implementing anything.
-
-```bash
-python skills/ingest.py          # find undigested raw/ files
-python skills/evidence.py "term" # build grounded evidence bundle
-python skills/search.py "term"   # search wiki/ (stdout)
-python skills/lint.py            # structural health check
-python skills/stub.py <type> <name>  # create a blank wiki page
-```
-
----
-
-## Obsidian
-
-Open repo root as a vault. `[[links]]` are Obsidian-compatible.
-`links:` frontmatter field stores original URLs from Clipper for clickable references.
-
----
-
-## Git Conventions
-
-```bash
-git commit -m "digest: <titles>"    # after /digest
-git commit -m "distill: <topic>"    # after /distill
-git commit -m "skill: add <name>"   # after adding a skill
-```
-
-`output/` is never committed. Run `python skills/lint.py` before every push.
+- `output/` is scratch space and should stay untracked
+- `wiki/` is intended to evolve through the structured pipeline, not ad hoc report generation
+- Obsidian-style `[[links]]` are supported throughout the wiki

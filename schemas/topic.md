@@ -7,7 +7,7 @@ updated: YYYY-MM-DD
 sources:
   - raw/<source-file> or https://...
 links:
-  - https://...   # original URL if clipped from web (Obsidian Clipper)
+  - https://...
 tags: []
 ---
 
@@ -17,57 +17,46 @@ tags: []
 
 <!--
 What does this topic cover and what does it explicitly exclude?
-Which domain does this belong to: HPC | AI Infra | AI Agents | (cross-cutting)?
 1-2 paragraphs.
 -->
 
 ## Subproblems
 
 <!--
-Break the topic into the distinct subproblems or subtopics that researchers work on.
-Each subproblem should ideally map to or eventually become a [[concept]] page.
-Format: numbered list with a 1-sentence description of each.
+Break the topic into distinct subproblems or subtopics.
+Each one should ideally map to or become a [[concept]] page.
 -->
 
 ## Key Approaches
 
 <!--
-What are the main technical approaches or paradigms used to address this topic?
-Format: heading per approach, 2-4 sentence description, links to relevant concepts.
-
-### Approach 1: <Name>
-...
-
-### Approach 2: <Name>
-...
+What are the major approaches, schools, or implementation patterns in this area?
+Use short subsections where useful.
 -->
 
-## Landscape of Systems / Papers
+## Landscape of Systems / Sources
 
 <!--
-Notable systems, frameworks, or papers in this area.
-This is not exhaustive — link to summary pages where they exist.
-Format: table or bullet list.
-| Name | Year | Key Contribution | Link |
+Notable systems, documents, or references in this area.
+Use a table or bullet list.
 -->
 
 ## Important References
 
 <!--
-Papers, blog posts, or talks that are canonical for this topic.
-Format: bullet list.
-- Author et al. (Year) — "Title" — [[summary-<slug>]] or URL — Why important
+Canonical references for this topic.
+- Author or source — "Title" — [[summary-...]] or URL — why it matters
 -->
 
 ## Open Problems
 
 <!--
-What are the unsolved or actively contested problems in this topic as of the latest sources?
-Use [UNVERIFIED] for claims without a traceable source.
+What remains unresolved or contested?
+Use [UNVERIFIED] for claims without traceable support.
 -->
 
 ## Related Topics
 
 <!--
-[[PageName]] links to related topic pages.
+[[PageName]] links to related topics.
 -->

@@ -271,7 +271,7 @@ def main():
     SKIP = {"AGENTS.md"}
 
     files = []
-    for p in sorted(RAW_DIR.iterdir()):
+    for p in sorted(RAW_DIR.glob("*.md")):
         if p.is_file() and p.name not in SKIP:
             files.append(p)
 

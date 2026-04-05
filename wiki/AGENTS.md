@@ -2,23 +2,19 @@
 
 ## Role of This Directory
 
-`wiki/` is the **compiled, structured knowledge base**. All content here is derived from `raw/` and shaped by agent processing.
-
----
+`wiki/` is the compiled knowledge base.
 
 ## Page Types
 
-| Type      | Location           | Schema             | One file per...              |
-|-----------|--------------------|--------------------|------------------------------|
-| concept   | `wiki/concepts/`   | `schemas/concept.md` | One atomic concept or term |
-| topic     | `wiki/topics/`     | `schemas/topic.md`   | One research area/subfield |
-| summary   | `wiki/summaries/`  | `schemas/summary.md` | One source document/paper  |
-
----
+| Type | Location | Schema |
+|------|----------|--------|
+| concept | `wiki/concepts/` | `schemas/concept.md` |
+| topic | `wiki/topics/` | `schemas/topic.md` |
+| summary | `wiki/summaries/` | `schemas/summary.md` |
 
 ## Schema Requirements
 
-Every page **must** begin with YAML frontmatter:
+Durable pages should begin with YAML frontmatter containing:
 
 ```yaml
 ---
@@ -29,56 +25,26 @@ created: YYYY-MM-DD
 updated: YYYY-MM-DD
 sources:
   - raw/<filename> or https://...
-tags: [tag1, tag2]
+links:
+  - https://...
+tags: []
 ---
 ```
-
-Pages missing frontmatter will be flagged by `lint.py` as malformed.
-
----
 
 ## Linking Rules
 
-- Use `[[PageName]]` syntax for all internal links (Obsidian-compatible)
-- `PageName` must match the filename without `.md` extension (case-sensitive)
-- Every new page must be linked from at least one existing page or `wiki/index.md`
-- Do not use bare URLs for internal references — always use `[[links]]`
-- External URLs are allowed inline in `Sources` sections
-
----
+- Use `[[PageName]]` for internal links
+- New pages must be linked from another page or `wiki/index.md`
+- Keep provenance traceable through summaries or raw sources
 
 ## Update Rules
 
-1. **Additive by default**: add new sections, update existing sections, never delete content
-2. **Preserve all `[[links]]`**: if you remove a sentence containing a link, move the link elsewhere on the page
-3. **Bump `updated` date** in frontmatter whenever content changes
-4. **Status promotion**: `draft` → `stable` only when all `[UNVERIFIED]` markers are resolved and at least one source is confirmed
-5. **Deprecation**: set `status: deprecated` and add a `Superseded By` section pointing to the replacement page
-
----
+1. Additive by default
+2. Bump `updated` when content changes
+3. Promote `draft` to `stable` only after resolving `[UNVERIFIED]`
+4. Deprecate with `status: deprecated` instead of silent deletion
 
 ## Index Maintenance
 
-`wiki/index.md` is the entry point for human readers and agents.
-- All concept pages must appear in at least one index section
-- Topic pages must appear in the top-level topic list
-- Summary pages are listed under their corresponding topic or concept
-
----
-
-## Directory Layout
-
-```
-wiki/
-  index.md              Master index — keep up to date
-  concepts/             Atomic knowledge units
-    flash-attention.md
-    collective-communication.md
-    ...
-  topics/               Broader topic pages
-    gpu-memory-optimization.md
-    ...
-  summaries/            Per-source summaries
-    summary-flashattention2-paper.md
-    ...
-```
+`wiki/index.md` is the entry point for humans and agents.
+Keep it current whenever durable pages are added or reorganized.

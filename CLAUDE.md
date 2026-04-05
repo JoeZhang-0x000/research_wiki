@@ -1,6 +1,6 @@
-# Claude Code Instructions — research_wiki
+# Claude Code Instructions — knowledge-wiki-starter
 
-LLM-native knowledge compilation system for AI research (HPC, AI Infra, Agents).
+LLM-native markdown knowledge base starter.
 
 ---
 
@@ -8,102 +8,71 @@ LLM-native knowledge compilation system for AI research (HPC, AI Infra, Agents).
 
 | Directory | Purpose | Git |
 |-----------|---------|-----|
-| `raw/` | Source materials — append-only, never edit | tracked |
+| `raw/` | Source materials | tracked |
 | `wiki/` | Compiled knowledge pages | tracked |
-| `output/` | Ephemeral scratch — never commit | gitignored |
-| `skills/` | All executable logic — check here first | tracked |
-| `schemas/` | Page templates — stable | tracked |
-| `.claude/commands/` | Slash commands | tracked |
-
----
+| `output/` | Ephemeral scratch | gitignored |
+| `skills/` | Executable local logic | tracked |
+| `schemas/` | Page templates | tracked |
+| `.claude/commands/` | Slash command wrappers | tracked |
 
 ## Skills
 
-Before implementing anything, check `skills/`:
+Check `skills/` before implementing anything:
 
 ```bash
 ls skills/
 python skills/<name>.py --help
 ```
 
-Built-in: `ingest.py`, `search.py`, `lint.py`, `stub.py`, `reorganize.py`
-
-Grounded generation helpers: `evidence.py`, `backfill_provenance.py`
-
----
+Core workflows:
+- `ingest.py`
+- `digest.py`
+- `evidence.py`
+- `lint.py`
+- `reorganize.py`
+- `stub.py`
 
 ## Output vs Wiki — Hard Boundary
 
-This is the most important rule. When deciding where to write:
+| User intent | Destination |
+|-------------|-------------|
+| Generate a report or exploratory analysis | `output/` |
+| Ask a grounded question | conversation only |
+| Compile new raw sources | `wiki/` |
+| Repair or restructure existing knowledge pages | `wiki/` |
 
-| User intent | Destination | Examples |
-|-------------|-------------|---------|
-| "Generate / write me a report on X" | `output/` | research reports, analysis, summaries on demand |
-| "Analyze X" | `output/` | `/analyze` results |
-| "What does the wiki say about X" | conversation only | `/query` answers |
-| New raw source was ingested | `wiki/summaries/` + `wiki/concepts/` | via `/digest` only |
-| Filling a gap found by lint | `wiki/` | via `/distill` only |
-
-**If the user asks you to generate, research, or produce content → `output/`, never `wiki/`.**
-**`wiki/` is only modified through the structured pipeline: `/digest` or `/distill`.**
-
-No exceptions. Even if the output looks like a concept page — if the user requested it, it goes to `output/`.
-
----
-
-## Command → Destination Map
-
-| Command | Writes to |
-|---------|-----------|
-| `/digest` | `wiki/` (summaries + concepts from raw/) |
-| `/distill` | `wiki/` (fill lint-detected gaps, with user approval) |
-| `/analyze` | `output/` (one analysis file) |
-| `/query` | conversation only |
-| `/reorganize` | `wiki/` in-place (fix broken links only) |
-
----
+Do not write generated reports directly into `wiki/`.
 
 ## Query Policy
 
-`/query` → build an evidence bundle from wiki → answer in conversation with citations → note gaps → ask user.
-Never write to `output/` for a query.
-
-Every substantive claim must cite the evidence bundle ids (`[S1]`, `[S2]`, ...).
-If `python skills/evidence.py "<question>" --json` reports `coverage: not-covered`, do not answer from priors; tell the user the wiki does not cover it well enough.
+- Run `python skills/evidence.py "<question>" --json` first
+- Use the evidence bundle as the factual base
+- Cite substantive claims with `[S1]`, `[S2]`, ...
+- If coverage is `not-covered`, stop instead of answering from priors
 
 ## Analysis Policy
 
-`/analyze` → build an evidence bundle from wiki → five passes using only that evidence → write ONE file to `output/` → tell user key findings → ask before touching wiki.
-
-All analysis claims and synthesis must remain traceable to summary/raw/url provenance from the evidence bundle.
-
-## Distillation Policy
-
-`/distill` → run `python skills/lint.py` → show user what will change → get approval → write wiki → commit.
-
----
-
-## Ingestion State
-
-A raw file is **compiled** when a `wiki/summaries/` page lists it in `sources:`.
-No sidecar files. State is in the wiki.
-
----
+- Build from the wiki evidence bundle
+- Write one grounded output file to `output/`
+- Ask before distilling analysis back into `wiki/`
 
 ## Provenance
 
-- `sources:` — raw files or URLs this page was compiled from
-- `links:` — original web URLs (Obsidian Clipper) for clickable references
-- `[UNVERIFIED]` — uncertain claims; must resolve before `status: stable`
-
----
+- `sources:` tracks raw files or URLs
+- `links:` tracks canonical external references
+- `[UNVERIFIED]` marks unresolved claims
 
 ## Git
 
 ```bash
-git add wiki/ raw/ && git commit -m "digest: <titles>" && git push
-git add wiki/    && git commit -m "distill: <topic>"  && git push
-git add skills/  && git commit -m "skill: add <name>" && git push
+git add wiki/ raw/
+git commit -m "digest: <scope>"
+
+git add wiki/
+git commit -m "distill: <scope>"
+
+git add skills/ .claude/commands/
+git commit -m "skill: add <name>"
 ```
 
-Run `python skills/lint.py` before every push.
+Run `python skills/lint.py` before pushing.

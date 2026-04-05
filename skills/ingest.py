@@ -49,7 +49,7 @@ def compiled_sources() -> set[str]:
 
 def raw_files() -> list[Path]:
     files = []
-    for p in sorted(RAW_DIR.iterdir()):
+    for p in sorted(RAW_DIR.glob("*.md")):
         if p.is_file() and p.name not in SKIP:
             files.append(p)
     return files
