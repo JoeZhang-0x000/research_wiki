@@ -6,6 +6,7 @@ created: 2026-04-04
 updated: 2026-04-04
 sources:
   - raw/thread-by-karpathy-2026-04-03.md
+  - raw/Andrej Karpathy LLM Wiki Gist 2026-04-04.md
   - raw/building-a-virtual-filesystem-for-mintlifys-2026-04-03.md
 links: []
 tags: [ai-agents, markdown, obsidian, knowledge-management]
@@ -54,7 +55,8 @@ The key operational move is to maintain lightweight structure:
 
 ## Source Basis
 
-- [[summary-karpathy-knowledge-base-thread]] — direct description of the raw → compile → query workflow
+- [[summary-karpathy-knowledge-base-thread]] — April 3 thread describing initial LLM knowledge base workflow
+- [[summary-karpathy-llm-wiki-pattern-2026]] — formal pattern description (April 4 gist); three-layer architecture, ingest/query/lint operations, compounding writes
 - [[summary-mintlify-virtual-filesystem]] — argument for filesystem-style interfaces over top-k chunk retrieval
 
 ## Open Questions

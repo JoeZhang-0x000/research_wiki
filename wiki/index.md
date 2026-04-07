@@ -179,6 +179,7 @@ The following concepts are useful follow-up pages for expanding the wiki:
 | [[summary-thread-by-gittrend0x-github-trending-self-evolving-agents]] | GitHub 5个自我进化记忆Agent爆火：从记忆进化到多Agent辩论到自动科研 (2026) | [[ai-agents]] |
 | [[summary-thread-by-hanzheng-7-coral-autonomous-multi-agent-discovery]] | CORAL: 多Agent形成研究社区，50%以上突破来自互相借鉴 (2026) | [[ai-agents]] |
 | [[summary-karpathy-second-brain-how-to-build-it]] | Karpathy第二大脑方案：三个文件夹+CLAUDE.md，AI维护wiki积累知识 (2026) | [[markdown-knowledge-bases]] |
+| [[summary-karpathy-llm-wiki-pattern-2026]] | LLM Wiki：compile-only知识库，Raw→Wiki→Schema三层，Ingest/Query/Lint三种操作，knowledge compounding (2026) | [[markdown-knowledge-bases]] |
 | [[summary-meta-agent-continual-learning-for-agents]] | Meta-Agent: 从生产轨迹持续改进harness，holdout准确率67%→87% (2026) | [[ai-agents]] |
 | [[summary-观摩学习顶级agents如何对gpt进行行为矫正]] | Hermes Agent和OpenClaw修复GPT-5.4行为缺陷：光说不做/半途而废/不验证/编造 (2026) | [[ai-agents]] |
 | [[summary-mcp-vs-cli-debate-speed]] | MCP vs CLI争议核心：速度问题 + Cerebras推理加速 + Monty安全代码执行 (2026) | [[ai-agents]] |
@@ -308,3 +309,5 @@ The following concepts are useful follow-up pages for expanding the wiki:
 - 2026-04-07 — [[agent-trust-protocol]] created (draft)
 - 2026-04-07 — [[summary-thread-by-xiao-zcloak-agent-trust-protocol-atp-zcloak]] created (draft)
 - 2026-04-07 — [[summary-google-deepmind-ai-agent-traps-ssrn-2026]] created (draft)
+- 2026-04-07 — [[summary-karpathy-llm-wiki-pattern-2026]] created (draft)
+- 2026-04-07 — [[markdown-knowledge-base]] updated (added LLM Wiki gist source)
