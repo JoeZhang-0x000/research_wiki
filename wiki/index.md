@@ -180,6 +180,9 @@ The following concepts are useful follow-up pages for expanding the wiki:
 | [[summary-观摩学习顶级agents如何对gpt进行行为矫正]] | Hermes Agent和OpenClaw修复GPT-5.4行为缺陷：光说不做/半途而废/不验证/编造 (2026) | [[ai-agents]] |
 | [[summary-mcp-vs-cli-debate-speed]] | MCP vs CLI争议核心：速度问题 + Cerebras推理加速 + Monty安全代码执行 (2026) | [[ai-agents]] |
 | [[summary-molab-notebook-competition-alphaxiv-marimo]] | alphaXiv x marimo竞赛：选论文做成交互notebook，截止4月26日 (2026) | [[markdown-knowledge-bases]] |
+| [[summary-raca-research-assistant-coding-agent-for-phd-students]] | RACA: PhD学生的Claude Code harness，SSH连Slurm+HuggingFace可视化，只说话不写代码 (2026) | [[ai-agents]] |
+| [[summary-asi-evolve-automated-ai-research-self-improvement]] | ASI-Evolve: AI运行完整科学循环自我改进，发现100+新架构，超越人类3x (2026) | [[ai-agents]] |
+| [[summary-feynman-open-source-ai-research-agent]] | Feynman: 四agent研究系统(Researcher/Reviewer/Writer/Verifier)，MIT协议 (2026) | [[ai-agents]] |
 
 ---
 
@@ -278,3 +281,6 @@ The following concepts are useful follow-up pages for expanding the wiki:
 - 2026-04-07 — [[summary-观摩学习顶级agents如何对gpt进行行为矫正]] created (draft)
 - 2026-04-07 — [[summary-mcp-vs-cli-debate-speed]] created (draft)
 - 2026-04-07 — [[summary-molab-notebook-competition-alphaxiv-marimo]] created (draft)
+- 2026-04-07 — [[summary-raca-research-assistant-coding-agent-for-phd-students]] created (draft)
+- 2026-04-07 — [[summary-asi-evolve-automated-ai-research-self-improvement]] created (draft)
+- 2026-04-07 — [[summary-feynman-open-source-ai-research-agent]] created (draft)
