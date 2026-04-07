@@ -172,6 +172,7 @@ The following concepts are useful follow-up pages for expanding the wiki:
 | [[summary-observers-are-all-you-need]] | Observer Patch Holography: physics from observer-overlap consistency on holographic screens (2026) | [[fundamental-physics]] |
 | [[summary-搞懂缓存机制从gemma4到claude-code省80token]] | KV cache原理 + Claude Code缓存工程：省3-5倍token (2026) | [[llm-quantization]] |
 | [[summary-苏格拉底追问维特根斯坦拆解波兰尼兜底我的系统再次升级]] | 苏格拉底+维特根斯坦+波兰尼：模糊念头→清晰想法的三层系统 (2026) | [[ai-agents]] |
+| [[summary-thread-by-deedydas-meta-harnesses]] | Meta Harness: harness的自我优化版本，大幅超越传统harness (2026) | [[ai-agents]] |
 
 ---
 
@@ -262,3 +263,4 @@ The following concepts are useful follow-up pages for expanding the wiki:
 - 2026-04-07 — [[measurement-problem]] created (draft)
 - 2026-04-07 — [[summary-搞懂缓存机制从gemma4到claude-code省80token]] created (draft)
 - 2026-04-07 — [[summary-苏格拉底追问维特根斯坦拆解波兰尼兜底我的系统再次升级]] created (draft)
+- 2026-04-07 — [[summary-thread-by-deedydas-meta-harnesses]] created (draft)
